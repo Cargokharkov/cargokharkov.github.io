@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Kharkov Cargo · Перевезення по Харкову · Fiat Doblo Maxi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        /* ---- ФОН НА ВЕСЬ САЙТ (вантажна тематика) ---- */
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+
+            background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #1a2a3a;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 880px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            padding: 2rem 1.8rem;
+            margin: 1rem auto;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* ===== НАЗВА САЙТУ ===== */
+        .site-name {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: #0b2a41;
+            background: rgba(255, 215, 0, 0.15);
+            padding: 0.3rem 1.8rem;
+            border-radius: 60px;
+            display: inline-block;
+            margin: 0 auto 0.8rem auto;
+            border: 2px solid #ffd966;
+            box-shadow: 0 2px 12px rgba(255, 215, 0, 0.2);
+        }
+
+        .site-name-wrapper {
+            text-align: center;
+        }
+
+        .site-name .cargo {
+            color: #1c4b6e;
+            font-weight: 900;
+        }
+
+        /* ===== ВЕЛИКИЙ ВИДІЛЕНИЙ ЗАГОЛОВОК ===== */
+        .hero-title {
+            text-align: center;
+            margin: 0.2rem 0 1.2rem 0;
+            padding: 0.6rem 1rem;
+            background: linear-gradient(135deg, #0b2a41, #1c4b6e);
+            border-radius: 1.5rem;
+            box-shadow: 0 6px 20px rgba(11, 42, 65, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-title h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            color: #ffffff;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .hero-title .sub-city {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #ffd966;
+            display: block;
+            margin-top: 0.1rem;
+            letter-spacing: 0.08em;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-title .sub-city span {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 1rem;
+        }
+
+        .header h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #0b2a41;
+            line-height: 1.2;
+        }
+
+        .header .badge {
+            background: rgba(11, 42, 65, 0.12);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #0b2a41;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 1.4rem;
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: 0.2s;
+        }
+
+        .info-card .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #2c4b69;
+            font-weight: 700;
+        }
+
+        .info-card .value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0b2a41;
+            line-height: 1.2;
+            margin-top: 0.2rem;
+        }
+
+        .info-card .desc {
+            font-size: 0.85rem;
+            color: #2c4b69;
+            margin-top: 0.2rem;
+            font-weight: 500;
+        }
+
+        .info-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .dimensions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(2px);
+            padding: 1rem 0.8rem;
+            border-radius: 2rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .dimension-chip {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(2px);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .dimension-chip span {
+            color: #1c4b6e;
+        }
+
+        .city-info {
+            background: rgba(11, 42, 65, 0.06);
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin: 1.2rem 0;
+            border-left: 5px solid #1c4b6e;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-left-width: 6px;
+        }
+
+        .city-info p {
+            font-size: 0.95rem;
+            color: #1d3d5a;
+            line-height: 1.6;
+            margin-bottom: 0.6rem;
+        }
+
+        .city-info strong {
+            color: #0b2a41;
+        }
+
+        .city-info .highlight {
+            background: #ffd966;
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 700;
+            color: #0b2a41;
+        }
+
+        .city-info ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        .city-info ul li {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #0b2a41;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .contact-block {
+            background: rgba(11, 42, 65, 0.85);
+            backdrop-filter: blur(6px);
+            color: white;
+            border-radius: 2rem;
+            padding: 1.8rem 1.2rem;
+            margin: 1.8rem 0 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .contact-block a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 2rem;
+            letter-spacing: 0.02em;
+            background: rgba(255,255,255,0.12);
+            padding: 0.4rem 1.8rem;
+            border-radius: 60px;
+            transition: background 0.2s;
+            display: inline-block;
+            margin-top: 0.2rem;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .contact-block a:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .contact-block .phone-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.3rem;
+            font-weight: 400;
+        }
+
+        .badge-icon {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 30px;
+            padding: 0.2rem 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #0b2a41;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: inline-block;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .extra-text {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin: 1.2rem 0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .extra-text p {
+            font-size: 0.95rem;
+            color: #1d3d5a;
+            line-height: 1.7;
+            margin-bottom: 0.4rem;
+        }
+
+        .extra-text .accent {
+            color: #0b2a41;
+            font-weight: 700;
+        }
+
+        .footer {
+            font-size: 0.75rem;
+            color: #2c4b69;
+            text-align: center;
+            padding: 1.5rem 0 0.2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin-top: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 1.2rem; }
+            .site-name { font-size: 1.3rem; padding: 0.3rem 1.2rem; }
+            .hero-title h2 { font-size: 2rem; }
+            .hero-title .sub-city { font-size: 1rem; }
+            .info-grid { grid-template-columns: 1fr; }
+            .info-card .value { font-size: 1.3rem; }
+            .header h1 { font-size: 1.3rem; }
+            .contact-block a { font-size: 1.5rem; padding: 0.3rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== НАЗВА САЙТУ ===== -->
+        <div class="site-name-wrapper">
+            <div class="site-name">
+                🚛 Kharkov <span class="cargo">Cargo</span>
+            </div>
+        </div>
+
+        <!-- ===== ВЕЛИКИЙ ВИДІЛЕНИЙ ЗАГОЛОВОК ===== -->
+        <div class="hero-title">
+            <h2>
+                ПЕРЕВЕЗЕННЯ ПО ХАРКОВУ
+                <span class="sub-city"><span>🚐 Fiat Doblo Maxi · мікроавтобус</span></span>
+            </h2>
+        </div>
+
+        <!-- Шапка з моделлю -->
+        <div class="header">
+            <h1>🚐 Fiat Doblo Maxi</h1>
+            <div class="badge">⏱️ мінімум 2 год</div>
+        </div>
+
+        <!-- ===== ІНФОРМАЦІЯ ПРО ПЕРЕВЕЗЕННЯ ===== -->
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="label">💰 Вартість</div>
+                <div class="value">350 ₴ / год</div>
+                <div class="desc">+20 ₴/км (дальні відстані по місту)</div>
+            </div>
+            <div class="info-card">
+                <div class="label">⏱️ Мінімальне замовлення</div>
+                <div class="value">2 години</div>
+                <div class="desc">зручно для будь-яких перевезень</div>
+            </div>
+            <div class="info-card">
+                <div class="label">📦 Вантажний відсік</div>
+                <div class="value">1.80 × 1.20 × 1.30 м</div>
+                <div class="desc">довжина × ширина × висота</div>
+            </div>
+            <div class="info-card">
+                <div class="label">🏙️ Місто</div>
+                <div class="value">Харків</div>
+                <div class="desc">перевезення в межах міста</div>
+            </div>
+        </div>
+
+        <!-- Габарити -->
+        <div class="dimensions">
+            <span class="dimension-chip">📏 <span>1.80 м</span> довжина</span>
+            <span class="dimension-chip">📐 <span>1.20 м</span> ширина</span>
+            <span class="dimension-chip">📏 <span>1.30 м</span> висота</span>
+            <span class="dimension-chip">📦 об'єм ~2.8 м³</span>
+        </div>
+
+        <!-- ===== РОЗГОРНУТА ІНФОРМАЦІЯ ПРО ПЕРЕВЕЗЕННЯ ПО ХАРКОВУ ===== -->
+        <div class="city-info">
+            <p>
+                <strong>🚚 Малогабаритні перевезення по Харкову</strong> — це швидко, зручно та надійно. 
+                Ми працюємо в усіх районах міста: 
+                <span class="highlight">Шевченківський</span>, 
+                <span class="highlight">Новобаварський</span>, 
+                <span class="highlight">Київський</span>, 
+                <span class="highlight">Слобідський</span>, 
+                <span class="highlight">Холодногірський</span>, 
+                <span class="highlight">Основ'янський</span>, 
+                <span class="highlight">Немишлянський</span>, 
+                <span class="highlight">Індустріальний</span>.
+            </p>
+            <p>
+                <strong>📍 Чому обирають нас?</strong> 
+                Fiat Doblo Maxi — компактний, але місткий автомобіль, який легко маневрує в щільному міському трафіку. 
+                Ідеально підходить для перевезення <strong>меблів</strong>, <strong>побутової техніки</strong>, 
+                <strong>будівельних матеріалів</strong>, <strong>речей при переїзді</strong> та інших вантажів.
+            </p>
+            <p>
+                <strong>🛣️ Дальні відстані по місту:</strong> +20 грн/км — це стосується будь-яких поїздок у межах Харкова, 
+                коли маршрут потребує додаткового пробігу. Ми розраховуємо кілометраж чесно та прозоро.
+            </p>
+            <p>
+                <strong>⏱️ Гнучкий графік:</strong> мінімальне замовлення — 2 години. 
+                Ми цінуємо ваш час і робимо все, щоб перевезення пройшли максимально комфортно.
+            </p>
+            <p>
+                <strong>📞 Швидке оформлення:</strong> просто зателефонуйте або напишіть у месенджер — 
+                і ми погодимо зручний час приїзду.
+            </p>
+        </div>
+
+        <!-- ===== ДОДАТКОВИЙ ТЕКСТОВИЙ БЛОК ===== -->
+        <div class="extra-text">
+            <p>
+                <span class="accent">✅ Перевезення по Харкову з Fiat Doblo Maxi — це:</span>
+            </p>
+            <p>
+                • <strong>Економія</strong> — вигідна погодинна оплата без прихованих платежів.<br>
+                • <strong>Надійність</strong> — автомобіль у відмінному технічному стані, страховка включена.<br>
+                • <strong>Досвід</strong> — багато років працюємо на ринку перевезень Харкова, знаємо всі вулиці та двори.<br>
+                • <strong>Швидкість</strong> — приїжджаємо точно в зазначений час, не змушуємо чекати.
+            </p>
+            <p style="margin-top: 0.5rem;">
+                <span class="accent">📦 Що можна перевезти?</span> 
+                Дивани, шафи, холодильники, пральні машини, будівельні матеріали (дошки, гіпсокартон, труби), 
+                велосипеди, побутову техніку, офісні меблі, коробки з речами — практично все, що влазить у наш вантажний відсік!
+            </p>
+            <p style="margin-top: 0.5rem;">
+                <span class="accent">🏙️ Ми працюємо для вас у будь-якій точці Харкова:</span> 
+                від Північної Салтівки до Нової Баварії, від Олексіївки до центру. 
+                Без обмежень — просто подзвоніть, і ми приїдемо.
+            </p>
+        </div>
+
+        <!-- Теги -->
+        <div class="tags">
+            <span class="badge-icon">🚐 мікроавтобус</span>
+            <span class="badge-icon">📦 вантажні перевезення</span>
+            <span class="badge-icon">🏙️ Харків</span>
+            <span class="badge-icon">🛣️ дальні відстані</span>
+            <span class="badge-icon">⏱️ погодинна оплата</span>
+            <span class="badge-icon">📋 перевезення меблів</span>
+            <span class="badge-icon">🔧 будівельні матеріали</span>
+            <span class="badge-icon">📦 переїзд</span>
+        </div>
+
+        <!-- Контакт -->
+        <div class="contact-block">
+            <div class="phone-label">📞 Телефон для зв'язку</div>
+            <a href="tel:+380638744206">+38 063 874 4206</a>
+            <div style="margin-top: 0.8rem; font-size: 0.85rem; opacity: 0.8; display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center;">
+                <span>📱 Viber / Telegram</span>
+                <span>🕘 9:00 – 19:00</span>
+                <span>📅 Пн–Пт</span>
+                <span>📍 Харків</span>
+            </div>
+        </div>
+
+        <!-- Футер -->
+        <div class="footer">
+            Kharkov Cargo · малогабаритні перевезення · м. Харків <br>
+            <span style="opacity: 0.7;">© 2026 · всі права захищено</span>
+        </div>
+    </div>
+</body>
+</html>
